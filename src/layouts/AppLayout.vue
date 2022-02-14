@@ -4,29 +4,30 @@
   </component>
 </template>
 
-<script>
-import AppLayoutDefault from './AppLayoutDefault'
-import { markRaw, watch } from 'vue'
-import { useRoute } from 'vue-router'
+<script lang="ts">
+import AppLayoutDefault from "@/layouts/AppLayoutDefault.vue";
+import { markRaw, watch } from "vue";
+import { useRoute } from "vue-router";
+import "@/assets/tailwind.css";
 
 export default {
-  name: 'AppLayout',
+  name: "AppLayout",
   setup() {
-    const layout = markRaw(AppLayoutDefault)
-    const route = useRoute()
+    const layout = markRaw(AppLayoutDefault);
+    const route = useRoute();
     watch(
       () => route.meta,
-      async meta => {
+      async (meta) => {
         try {
-          const component = await import(`@/layouts/${meta.layout}.vue`)
-          layout.value = component?.default || AppLayoutDefault
+          const component = await import(`@/layouts/${meta.layout}.vue`);
+          layout.value = component?.default || AppLayoutDefault;
         } catch (e) {
-          layout.value = AppLayoutDefault
+          layout.value = AppLayoutDefault;
         }
       },
       { immediate: true }
-    )
-    return { layout }
-  }
-}
+    );
+    return { layout };
+  },
+};
 </script>

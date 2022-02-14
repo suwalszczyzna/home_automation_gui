@@ -8,7 +8,7 @@
 import AppLayoutNavbar from "@/layouts/AppLayoutNavbar";
 
 export default {
-  name: "AppLayoutHome",
+  name: "AppLayoutDefault",
   components: {
     AppLayoutNavbar,
   },
