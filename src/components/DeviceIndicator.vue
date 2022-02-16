@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grow p-2 m-2 rounded-xl border flex justify-center items-center bg-gray-200 border-gray-300"
+    class="p-2 m-2 rounded-xl border flex-auto flex justify-center items-center bg-gray-200 border-gray-300"
     v-bind:class="{
       'bg-green-100 border-green-300 text-lime-900': state,
     }"

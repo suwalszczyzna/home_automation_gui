@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container mx-auto min-h-screen font-light p-2">
     <AppLayoutNavbar />
     <slot />
   </div>
