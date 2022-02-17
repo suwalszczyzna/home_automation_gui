@@ -1,7 +1,7 @@
 {
     "theme_color": "#e5e7eb",
     "background_color": "#e5e7eb",
-    "display": "minimal-ui",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "Home automation",
