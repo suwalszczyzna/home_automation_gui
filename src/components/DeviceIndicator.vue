@@ -29,6 +29,7 @@ export default defineComponent({
     name: String,
   },
   setup(props) {
+    console.log(`${props.name} state: ${props.state}`)
     return {
       statusText: props.state ? "ON" : "OFF",
     };

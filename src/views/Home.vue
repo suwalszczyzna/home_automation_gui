@@ -8,9 +8,9 @@
 
     <h2 class="p-2 mt-4 text-xl">Stan urządzeń</h2>
     <div class="flex flex-row justify-center text-4xl">
-      <DeviceIndicator v-bind:state="false" iconName="valve.png" name="Zawór" />
+      <DeviceIndicator :state="valveStatus" iconName="valve.png" name="Zawór" />
       <DeviceIndicator
-        v-bind:state="true"
+        :state="heaterStatus"
         iconName="heater.png"
         name="Grzałka"
       />
@@ -69,6 +69,8 @@ export default defineComponent({
     return {
       coTemp,
       waterTemp,
+      heaterStatus,
+      valveStatus,
     };
   },
 });
