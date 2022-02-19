@@ -3,20 +3,20 @@
     <h1>Ładowanie...</h1>
   </div>
   <div v-else>
-    <div class="flex items-center justify-center">
+    <div class="flex items-center justify-center" :key="key">
       <div
         class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg"
         role="group"
       >
         <a
-          href="#"
+          @click="changeOperationMode('auto_mode')"
           class="rounded-l px-6 py-2.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
           :class="{ 'bg-blue-900': isAutoMode }"
         >
           Pełna automatyka
         </a>
         <a
-          href="#"
+          @click="changeOperationMode('auto_mode_heater')"
           class="rounded-r px-6 py-2.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
           :class="{ 'bg-blue-900': isHeaterMode }"
         >
@@ -27,8 +27,9 @@
     <div class="m-2 flex items-center justify-center">
       <label class="flex items-center">
         <input
-          disabled
+          @change="lowCostChecking()"
           :checked="isLowCostHeater"
+          v-model="isLowCostHeater"
           type="checkbox"
           class="form-checkbox"
         />
@@ -38,18 +39,49 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref, computed } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   name: "OperationModes",
   setup() {
+    const key = ref(0);
     const operationMode = ref("");
     const isLowCostHeater = ref(false);
     const isLoading = ref(true);
     const isAutoMode = ref(false);
     const isHeaterMode = ref(false);
 
-    onMounted(() => {
+    function lowCostChecking() {
+      isLoading.value = true;
+      const uri = `http://192.168.1.25:5000/api/set_checking_low_cost?operation=${operationMode.value}&value=${isLowCostHeater.value}`;
+      fetch(uri)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => {
+          isLoading.value = false;
+        });
+    }
+
+    function changeLowCostChecking(operation: string) {
+      const uri = `http://192.168.1.25:5000/api/set_operation_mode?operation=${operation}`;
+      isLoading.value = true;
+      fetch(uri)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => console.error(err))
+        .finally(() => {
+          isLoading.value = false;
+        });
+    }
+
+    function getMode() {
       isLoading.value = true;
       fetch("http://192.168.1.25:5000/api/get_actual_mode")
         .then((response) => response.json())
@@ -70,14 +102,35 @@ export default defineComponent({
           console.error(err);
           isLoading.value = false;
         });
+    }
+
+    function changeOperationMode(newMode: string) {
+      if (newMode == "auto_mode") {
+        isAutoMode.value = true;
+        isHeaterMode.value = false;
+        operationMode.value = newMode;
+      } else if (newMode == "auto_mode_heater") {
+        isAutoMode.value = false;
+        isHeaterMode.value = true;
+        operationMode.value = newMode;
+      }
+      changeLowCostChecking(operationMode.value);
+      setTimeout(() => getMode(), 500);
+    }
+
+    onMounted(() => {
+      getMode();
     });
 
     return {
+      key,
       operationMode,
       isLowCostHeater,
       isLoading,
       isAutoMode,
       isHeaterMode,
+      lowCostChecking,
+      changeOperationMode,
     };
   },
 });
