@@ -5,7 +5,6 @@
     >
       Home automation
     </h1>
-
     <h2 class="p-2 mt-4 text-xl">Stan urządzeń</h2>
     <div class="flex flex-row justify-center text-4xl">
       <DeviceIndicator :state="valveStatus" iconName="valve.png" name="Zawór" />

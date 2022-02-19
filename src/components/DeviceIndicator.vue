@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, computed, ComputedRef } from "vue";
 
 export default defineComponent({
   props: {
@@ -29,8 +29,12 @@ export default defineComponent({
     name: String,
   },
   setup(props) {
+    const statusText: ComputedRef<string> = computed((): string =>
+      props.state ? "ON" : "OFF"
+    );
+
     return {
-      statusText: props.state ? "ON" : "OFF",
+      statusText,
     };
   },
 });
