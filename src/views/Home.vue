@@ -1,11 +1,6 @@
 <template>
   <div id="temp" class="mx-auto max-w-screen-sm">
-    <h1
-      class="m-6 p-2 text-3xl text-center tracking-wider uppercase font-medium text-gray-600"
-    >
-      Home automation
-    </h1>
-    <h2 class="p-2 mt-4 text-xl">Stan urządzeń</h2>
+    <h2 class="p-2 text-xl">Stan urządzeń</h2>
     <div class="flex flex-row justify-center text-4xl">
       <DeviceIndicator :state="valveStatus" iconName="valve.png" name="Zawór" />
       <DeviceIndicator

@@ -1,16 +1,21 @@
 <template>
-  <div class="container mx-auto min-h-screen font-light p-2">
+  <div class="container mx-auto min-h-screen">
+    <AppTopNavbar />
     <AppLayoutNavbar />
-    <slot />
+    <div class="p-4">
+      <slot />
+    </div>
   </div>
 </template>
 <script>
 import AppLayoutNavbar from "@/layouts/AppLayoutNavbar";
+import AppTopNavbar from "@/layouts/AppTopNavbar";
 
 export default {
   name: "AppLayoutDefault",
   components: {
     AppLayoutNavbar,
+    AppTopNavbar,
   },
 };
 </script>

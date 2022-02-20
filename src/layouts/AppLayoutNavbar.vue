@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="fixed bottom-0 inset-x-0 bg-gray-200 flex justify-between text-sm text-gray-900 uppercase font-mono"
+    class="fixed bottom-0 inset-x-0 bg-gray-100 flex justify-between text-sm text-gray-900 uppercase font-mono border-t-2 border-gray-200"
   >
     <router-link
       to="/"
