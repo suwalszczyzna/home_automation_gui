@@ -2,7 +2,7 @@
   <div class="container mx-auto min-h-screen">
     <AppTopNavbar />
     <AppLayoutNavbar />
-    <div class="p-4">
+    <div class="p-4 container mx-auto max-w-screen-sm">
       <slot />
     </div>
   </div>
