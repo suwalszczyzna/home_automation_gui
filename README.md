@@ -1,4 +1,5 @@
 # home-automation-gui
+![home-automation-gui](/screenshots/home-automation-gui.png =x500)
 
 ## Project setup
 ```
