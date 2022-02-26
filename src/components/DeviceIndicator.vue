@@ -20,18 +20,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, ComputedRef } from "vue";
+import { defineComponent, computed, ComputedRef } from "vue";
 
 export default defineComponent({
   props: {
     state: Boolean,
     iconName: String,
     name: String,
+    customStatusText: String,
   },
   setup(props) {
-    const statusText: ComputedRef<string> = computed((): string =>
-      props.state ? "ON" : "OFF"
-    );
+    const statusText: ComputedRef<string> = computed((): string => {
+      if (props.customStatusText?.length) {
+        return props.customStatusText;
+      } else if (props.state) {
+        return "ON";
+      }
+      return "OFF";
+    });
 
     return {
       statusText,

@@ -9,6 +9,14 @@
         name="Grzałka"
       />
     </div>
+    <div class="flex flex-row justify-center text-4xl">
+      <DeviceIndicator
+        :state="washerStatus"
+        iconName="washer.png"
+        name="Pralka"
+        :customStatusText="washerPowerText"
+      />
+    </div>
     <h2 class="p-2 mt-4 text-xl">Temperatury</h2>
     <div class="flex flex-row justify-center text-4xl">
       <TempIndicator :value="coTemp" name="Piec" iconName="flame.png" />
@@ -18,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref, computed, ComputedRef } from "vue";
 import DeviceIndicator from "@/components/DeviceIndicator.vue";
 import TempIndicator from "@/components/TempIndicator.vue";
 
@@ -33,6 +41,12 @@ export default defineComponent({
     const waterTemp = ref(0);
     const heaterStatus = ref(false);
     const valveStatus = ref(false);
+    const washerStatus = ref(false);
+    const washerPower = ref(0);
+
+    const washerPowerText: ComputedRef<string> = computed(
+      (): string => `${washerPower.value} W`
+    );
 
     onMounted(() => {
       fetch("http://192.168.1.25:5000/api/temperature")
@@ -53,11 +67,11 @@ export default defineComponent({
           console.log(data);
           heaterStatus.value = data.heater;
           valveStatus.value = data.valve;
+          washerStatus.value = data.washer.status;
+          washerPower.value = data.washer.power;
         })
         .catch((err) => {
           console.error(err);
-          heaterStatus.value = false;
-          valveStatus.value = false;
         });
     });
     return {
@@ -65,6 +79,8 @@ export default defineComponent({
       waterTemp,
       heaterStatus,
       valveStatus,
+      washerStatus,
+      washerPowerText,
     };
   },
 });
