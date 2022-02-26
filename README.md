@@ -1,5 +1,7 @@
 # home-automation-gui
-![home-automation-gui](/screenshots/home-automation-gui.png =x500)
+
+<img src="https://github.com/suwalszczyzna/home_automation_gui/blob/master/screenshots/home-automation-gui.png?raw=true" width="400">
+
 
 ## Project setup
 ```
