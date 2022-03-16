@@ -27,8 +27,10 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed, ComputedRef } from "vue";
+import { storeToRefs } from "pinia";
 import DeviceIndicator from "@/components/DeviceIndicator.vue";
 import TempIndicator from "@/components/TempIndicator.vue";
+import { useInfoStore } from "../store/index";
 
 export default defineComponent({
   name: "HomeView",
@@ -37,48 +39,27 @@ export default defineComponent({
     TempIndicator,
   },
   setup() {
-    const coTemp = ref(0);
-    const waterTemp = ref(0);
-    const heaterStatus = ref(false);
-    const valveStatus = ref(false);
-    const washerStatus = ref(false);
-    const washerPower = ref(0);
+    const infoStore = useInfoStore();
+    const {
+      coTemp,
+      waterTemp,
+      heaterStatus,
+      valveStatus,
+      washerStatus,
+      washerPower,
+    } = storeToRefs(infoStore);
 
     const washerPowerText: ComputedRef<string> = computed(
       (): string => `${washerPower.value} W`
     );
 
     onMounted(() => {
+      infoStore.updateStore();
+
       fetch("http://192.168.1.25:5000/api/invoke")
         .then((response) => response.json())
         .then((data) => console.log(data))
         .catch((err) => console.error(err));
-
-      fetch("http://192.168.1.25:5000/api/temperature")
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          coTemp.value = data.co_temp;
-          waterTemp.value = data.water_temp;
-        })
-        .catch((err) => {
-          console.error(err);
-          coTemp.value = -1;
-          waterTemp.value = -1;
-        });
-
-      fetch("http://192.168.1.25:5000/api/smart_device_statuses")
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          heaterStatus.value = data.heater;
-          valveStatus.value = data.valve;
-          washerStatus.value = data.washer.status;
-          washerPower.value = data.washer.power;
-        })
-        .catch((err) => {
-          console.error(err);
-        });
     });
 
     return {
