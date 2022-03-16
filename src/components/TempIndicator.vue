@@ -23,6 +23,6 @@ export default defineComponent({
     iconName: String,
     value: Number,
     name: String,
-  }
+  },
 });
 </script>

@@ -31,7 +31,7 @@ import DeviceIndicator from "@/components/DeviceIndicator.vue";
 import TempIndicator from "@/components/TempIndicator.vue";
 
 export default defineComponent({
-  name: "Home",
+  name: "HomeView",
   components: {
     DeviceIndicator,
     TempIndicator,
@@ -49,6 +49,11 @@ export default defineComponent({
     );
 
     onMounted(() => {
+      fetch("http://192.168.1.25:5000/api/invoke")
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.error(err));
+
       fetch("http://192.168.1.25:5000/api/temperature")
         .then((response) => response.json())
         .then((data) => {
@@ -61,6 +66,7 @@ export default defineComponent({
           coTemp.value = -1;
           waterTemp.value = -1;
         });
+
       fetch("http://192.168.1.25:5000/api/smart_device_statuses")
         .then((response) => response.json())
         .then((data) => {
@@ -74,6 +80,7 @@ export default defineComponent({
           console.error(err);
         });
     });
+
     return {
       coTemp,
       waterTemp,

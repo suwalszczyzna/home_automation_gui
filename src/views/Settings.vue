@@ -12,7 +12,7 @@ import { defineComponent } from "vue";
 import OperationModes from "@/components/OperationModes.vue";
 
 export default defineComponent({
-  name: "Settings",
+  name: "SettingsView",
   components: {
     OperationModes,
   },

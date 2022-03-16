@@ -1,6 +1,8 @@
 <template>
   <div class="fixed bottom-0 inset-x-0 bg-gray-100 border-t-2 border-gray-200">
-    <nav class="mx-auto max-w-screen-sm flex justify-between text-sm text-gray-900 uppercase font-mono">
+    <nav
+      class="mx-auto max-w-screen-sm flex justify-between text-sm text-gray-900 uppercase font-mono"
+    >
       <router-link
         to="/"
         class="w-full block py-3 px-3 text-center hover:bg-gray-200 hover:text-gray-800 transition duration-300"

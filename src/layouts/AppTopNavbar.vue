@@ -1,8 +1,8 @@
 <template>
-  <div
-    class="bg-gray-100 border-b-2 border-gray-200"
-  >
-    <nav class="p-4 container mx-auto max-w-screen-sm flex items-center justify-between flex-wrap">
+  <div class="bg-gray-100 border-b-2 border-gray-200">
+    <nav
+      class="p-4 container mx-auto max-w-screen-sm flex items-center justify-between flex-wrap"
+    >
       <div class="flex items-center flex-shrink-0 text-grey mr-6">
         <svg
           class="fill-current h-8 w-8 mr-2"
