@@ -9,6 +9,8 @@ export const useInfoStore = defineStore({
     valveStatus: false,
     washerStatus: false,
     washerPower: 0,
+    dryerStatus: false,
+    dryerPower: 0
   }),
   actions: {
     updateTemperatures() {
@@ -34,6 +36,8 @@ export const useInfoStore = defineStore({
           this.valveStatus = data.valve;
           this.washerStatus = data.washer.status;
           this.washerPower = data.washer.power;
+          this.dryerStatus = data.dryer.status;
+          this.dryerPower = data.dryer.power;
         })
         .catch((err) => {
           console.error(err);

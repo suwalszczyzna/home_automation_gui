@@ -16,6 +16,12 @@
         name="Pralka"
         :customStatusText="washerPowerText"
       />
+      <DeviceIndicator
+        :state="dryerStatus"
+        iconName="dryer.png"
+        name="Suszarka"
+        :customStatusText="dryerPowerText"
+      />
     </div>
     <h2 class="p-2 mt-4 text-xl">Temperatury</h2>
     <div class="flex flex-row justify-center text-4xl">
@@ -47,10 +53,16 @@ export default defineComponent({
       valveStatus,
       washerStatus,
       washerPower,
+      dryerStatus,
+      dryerPower
     } = storeToRefs(infoStore);
 
     const washerPowerText: ComputedRef<string> = computed(
       (): string => `${washerPower.value} W`
+    );
+
+    const dryerPowerText: ComputedRef<string> = computed(
+      (): string => `${dryerPower.value} W`
     );
 
     onMounted(() => {
@@ -69,6 +81,8 @@ export default defineComponent({
       valveStatus,
       washerStatus,
       washerPowerText,
+      dryerPowerText,
+      dryerStatus
     };
   },
 });
